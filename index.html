@@ -3,135 +3,407 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dark Landing</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>EXCLUSIVE | Breaking News</title>
+    <style>
+      body {
+        margin: 0;
+        background: #050505;
+        color: #fff;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        overflow-x: hidden;
+      }
+
+      .shiny-text {
+        background: linear-gradient(90deg, #222, #fff, #222);
+        background-size: 200% auto;
+        color: #fff;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 3s linear infinite;
+      }
+
+      @keyframes shine {
+        to {
+          background-position: 200% center;
+        }
+      }
+
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: radial-gradient(circle at center, #1a1a2e 0%, #000 100%);
+        animation: pulseBg 5s infinite alternate;
+        padding-top: 2rem;
+      }
+
+      @keyframes pulseBg {
+        0% {
+          background: radial-gradient(circle at center, #0a0a1a 0%, #000 100%);
+        }
+        100% {
+          background: radial-gradient(circle at center, #1f0024 0%, #000 100%);
+        }
+      }
+
+      h1 {
+        font-size: 6rem;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 8px;
+        animation: float 4s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        50% {
+          transform: translateY(-20px);
+          text-shadow: 0 20px 40px rgba(255, 255, 255, 0.4);
+        }
+      }
+
+      .subtitle {
+        font-size: 1.5rem;
+        letter-spacing: 4px;
+        margin-bottom: 3rem;
+        background: linear-gradient(90deg, #333, #0ff, #333);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 2s linear infinite;
+      }
+
+      .ticker-wrap {
+        width: 100%;
+        background: #000;
+        overflow: hidden;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        border-top: 1px solid #0ff;
+        border-bottom: 1px solid #0ff;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .ticker {
+        display: inline-block;
+        white-space: nowrap;
+        animation: ticker 12s linear infinite;
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #0ff;
+        text-shadow: 0 0 5px #0ff;
+        letter-spacing: 2px;
+      }
+
+      @keyframes ticker {
+        0% {
+          transform: translateX(100vw);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        padding: 20px;
+        justify-content: center;
+        perspective: 1200px;
+      }
+
+      .card {
+        width: 320px;
+        height: 450px;
+        background: rgba(20, 20, 20, 0.6);
+        border-radius: 15px;
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+        padding: 25px;
+        box-sizing: border-box;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        animation: cardEntry 1s ease-out forwards;
+        opacity: 0;
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        width: 300%;
+        height: 300%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(255, 255, 255, 0.15),
+          transparent
+        );
+        transform: rotate(45deg);
+        animation: flash 4s infinite;
+      }
+
+      @keyframes flash {
+        0% {
+          left: -100%;
+          top: -100%;
+        }
+        100% {
+          left: 100%;
+          top: 100%;
+        }
+      }
+
+      .card:nth-child(1) {
+        animation-delay: 0.2s;
+        border-color: rgba(255, 0, 85, 0.4);
+      }
+      .card:nth-child(2) {
+        animation-delay: 0.4s;
+        border-color: rgba(0, 255, 255, 0.4);
+      }
+      .card:nth-child(3) {
+        animation-delay: 0.6s;
+        border-color: rgba(170, 0, 255, 0.4);
+      }
+
+      @keyframes cardEntry {
+        from {
+          transform: rotateY(90deg) translateZ(-500px);
+          opacity: 0;
+        }
+        to {
+          transform: rotateY(0deg) translateZ(0);
+          opacity: 1;
+        }
+      }
+
+      .card:hover {
+        transform: translateY(-15px) scale(1.05) rotateX(5deg);
+        z-index: 10;
+      }
+
+      .card:nth-child(1):hover {
+        box-shadow: 0 20px 40px rgba(255, 0, 85, 0.3);
+      }
+      .card:nth-child(2):hover {
+        box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+      }
+      .card:nth-child(3):hover {
+        box-shadow: 0 20px 40px rgba(170, 0, 255, 0.3);
+      }
+
+      .tag {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding: 5px 10px;
+        border-radius: 20px;
+        width: max-content;
+        margin-bottom: 10px;
+        animation: pulseTag 2s infinite alternate;
+      }
+
+      .card:nth-child(1) .tag {
+        background: #ff0055;
+        color: #fff;
+      }
+      .card:nth-child(2) .tag {
+        background: #00ffff;
+        color: #000;
+      }
+      .card:nth-child(3) .tag {
+        background: #aa00ff;
+        color: #fff;
+      }
+
+      @keyframes pulseTag {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.05);
+        }
+      }
+
+      .card h2 {
+        color: #fff;
+        font-size: 1.8rem;
+        margin: 10px 0;
+      }
+
+      .card p {
+        color: #ccc;
+        line-height: 1.6;
+        font-size: 1rem;
+      }
+
+      .btn {
+        margin-top: auto;
+        padding: 12px 20px;
+        background: transparent;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: 0.3s;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        outline: none;
+      }
+
+      .card:nth-child(1) .btn {
+        border: 2px solid #ff0055;
+        color: #ff0055;
+      }
+      .card:nth-child(2) .btn {
+        border: 2px solid #00ffff;
+        color: #00ffff;
+      }
+      .card:nth-child(3) .btn {
+        border: 2px solid #aa00ff;
+        color: #aa00ff;
+      }
+
+      .btn::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+      }
+
+      .card:nth-child(1) .btn::after {
+        background: #ff0055;
+      }
+      .card:nth-child(2) .btn::after {
+        background: #00ffff;
+      }
+      .card:nth-child(3) .btn::after {
+        background: #aa00ff;
+      }
+
+      .btn:hover {
+        color: #fff;
+        box-shadow: 0 0 15px currentColor;
+      }
+
+      .card:nth-child(2) .btn:hover {
+        color: #000;
+      }
+
+      .btn:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      .glow-dot {
+        position: absolute;
+        border-radius: 50%;
+        background: #fff;
+        filter: blur(5px);
+        animation: moveDot 10s linear infinite;
+        opacity: 0.3;
+      }
+
+      @keyframes moveDot {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(100vw, 100vh);
+        }
+      }
+    </style>
   </head>
   <body>
-    <header>
-      <nav>
-        <div class="logo">Aura</div>
-        <ul class="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <section class="hero">
-        <h1>Is Vivek in LOVE with Phani</h1>
-        <p>Answer below.</p>
-        <div class="button-container">
-          <button type="button">YES</button>
-          <button onclick="window.location.href='destination.html'">No</button>
+    <div class="ticker-wrap">
+      <div class="ticker">
+        LIVE UPDATES /// ACE ENGINEERING COLLEGE /// NEW PROBLEMS /// INSIDER
+        NEWS /// EXCLUSIVE HERE ///
+      </div>
+    </div>
+
+    <div class="hero">
+      <div
+        class="glow-dot"
+        style="width: 50px; height: 50px; top: 10%; left: 20%; background: #0ff"
+      ></div>
+      <div
+        class="glow-dot"
+        style="
+          width: 80px;
+          height: 80px;
+          top: 40%;
+          left: 80%;
+          background: #ff0055;
+        "
+      ></div>
+      <div
+        class="glow-dot"
+        style="
+          width: 40px;
+          height: 40px;
+          top: 80%;
+          left: 10%;
+          background: #aa00ff;
+        "
+      ></div>
+
+      <h1 class="shiny-text">INSIDE NEWS</h1>
+      <div class="subtitle">THE TRUTH, UNFILTERED</div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="tag">Insider info</div>
+          <h2>Gender reveal</h2>
+          <p>Is Vivek a gay?</p>
+          <button class="btn">Yes</button>
         </div>
-       
-      </section>
-    </main>
+
+        <div class="card">
+          <div class="tag">Exclusive</div>
+          <h2>Secret plan?</h2>
+          <p>
+            Sources say that yashwanth is trying to get the majority support and
+            become the CR of our class.
+          </p>
+          <button class="btn">Read Full Story</button>
+        </div>
+
+        <div class="card">
+          <div class="tag">Holiday</div>
+          <h2>New problem</h2>
+          <p>
+            The lecturers are planning to give us a new problem on the 9th of
+            August. They plan to take Online Classes!!
+          </p>
+          <button class="btn">We want Holiday</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Inter", sans-serif;
-  }
-
-  body {
-    background-color: #0f1115;
-    color: #f1f1f1;
-  }
-
-  header {
-    padding: 2rem 5%;
-  }
-
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #7b61ff;
-  }
-
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-  }
-
-  .nav-links a {
-    color: #a0a4b8;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s;
-  }
-
-  .nav-links a:hover {
-    color: #ffffff;
-  }
-
-  .hero {
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 1rem;
-  }
-
-  .hero h1 {
-    font-size: 4rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    background: linear-gradient(to right, #ffffff, #7b61ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .hero p {
-    font-size: 1.2rem;
-    color: #a0a4b8;
-    margin-bottom: 2.5rem;
-  }
-
-  .cta-btn {
-    padding: 1rem 2.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    background-color: #7b61ff;
-    color: #ffffff;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition:
-      background-color 0.3s,
-      transform 0.2s;
-  }
-  .button-container {
-    padding: 20px 40px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #ffffff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-}
-    display: flex;       /* Aligns children in a row */
-    gap: 10px;           /* Adds a 10px space between the buttons */
-  }
-
-  .cta-btn:hover {
-    background-color: #6248df;
-    transform: translateY(-2px);
-  }
-</style>
